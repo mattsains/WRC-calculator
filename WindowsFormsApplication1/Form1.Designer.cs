@@ -46,6 +46,7 @@
             this.bd = new System.Windows.Forms.Button();
             this.cmbBase = new System.Windows.Forms.ComboBox();
             this.bc = new System.Windows.Forms.Button();
+            this.pnlConvert = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // NumDisp
@@ -55,7 +56,7 @@
             this.NumDisp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.NumDisp.Location = new System.Drawing.Point(12, 9);
             this.NumDisp.Name = "NumDisp";
-            this.NumDisp.Size = new System.Drawing.Size(218, 29);
+            this.NumDisp.Size = new System.Drawing.Size(274, 29);
             this.NumDisp.TabIndex = 0;
             this.NumDisp.Text = "0";
             this.NumDisp.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -233,7 +234,7 @@
             "base 10"});
             this.cmbBase.Location = new System.Drawing.Point(12, 41);
             this.cmbBase.Name = "cmbBase";
-            this.cmbBase.Size = new System.Drawing.Size(218, 21);
+            this.cmbBase.Size = new System.Drawing.Size(274, 21);
             this.cmbBase.TabIndex = 16;
             this.cmbBase.Text = "base 10";
             this.cmbBase.SelectedIndexChanged += new System.EventHandler(this.cmbBase_SelectedIndexChanged);
@@ -249,11 +250,24 @@
             this.bc.UseVisualStyleBackColor = true;
             this.bc.Click += new System.EventHandler(this.Button_Click);
             // 
+            // pnlConvert
+            // 
+            this.pnlConvert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlConvert.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlConvert.Location = new System.Drawing.Point(415, 9);
+            this.pnlConvert.Name = "pnlConvert";
+            this.pnlConvert.Size = new System.Drawing.Size(268, 409);
+            this.pnlConvert.TabIndex = 18;
+            this.pnlConvert.TabStop = false;
+            this.pnlConvert.Text = "Decimal-Binary Conversion";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(695, 430);
+            this.Controls.Add(this.pnlConvert);
             this.Controls.Add(this.bc);
             this.Controls.Add(this.cmbBase);
             this.Controls.Add(this.bd);
@@ -298,6 +312,7 @@
         private System.Windows.Forms.Button bd;
         private System.Windows.Forms.ComboBox cmbBase;
         private System.Windows.Forms.Button bc;
+        private System.Windows.Forms.GroupBox pnlConvert;
 
     }
 }

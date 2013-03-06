@@ -17,7 +17,6 @@ namespace WindowsFormsApplication1
         }
         private void Button_Click (object sender, EventArgs e)
         {
-
             if (sender == bc)
             {
                 NumDisp.Text = "0";
@@ -58,6 +57,8 @@ namespace WindowsFormsApplication1
                 b7.Enabled=false;
                 b8.Enabled=false;
                 b9.Enabled = false;
+                //convert to binary
+                NumDisp.Text = Converter.ToString(Converter.Bits(int.Parse(NumDisp.Text)));
             }
             else if (cmbBase.Text == "base 10")
             {
@@ -71,6 +72,9 @@ namespace WindowsFormsApplication1
                 b7.Enabled = true;
                 b8.Enabled = true;
                 b9.Enabled = true;
+                //convert to base ten
+                //TODO: error here
+                NumDisp.Text = Converter.Int(Converter.ToBinary(NumDisp.Text)).ToString();
             }
         }
 
