@@ -72,8 +72,7 @@ namespace WindowsFormsApplication1
                 b7.Enabled = true;
                 b8.Enabled = true;
                 b9.Enabled = true;
-                //convert to base ten
-                //TODO: error here
+                //convert to base tens
                 NumDisp.Text = Converter.Int(Converter.ToBinary(NumDisp.Text)).ToString();
             }
         }

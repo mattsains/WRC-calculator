@@ -44,7 +44,7 @@ namespace WindowsFormsApplication1
             int output=0;
             for (int i = 0; i < 32; i++)
                 if (binary[i])
-                    output += (1 << i);
+                    output += (1 << (31-i));
             return output;
         }
         public static string ToString(bool[] binary)
@@ -61,9 +61,9 @@ namespace WindowsFormsApplication1
         public static bool[] ToBinary(string s)
         {
             bool[] output = new bool[32];
-            for (int i = s.Length - 1; i >= 0; i--)
+            for (int i = 0; i < s.Length && i < 32; i++)
             {
-                output[31-i] = s[i] == '1';
+                output[31 - i] = s[s.Length - i - 1] == '1';
             }
             return output;
         }
