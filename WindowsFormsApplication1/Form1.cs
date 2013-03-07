@@ -23,23 +23,19 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                int n = 0;
-                if (sender == b0) n = 0;
-                else if (sender == b1) n = 1;
-                else if (sender == b2) n = 2;
-                else if (sender == b3) n = 3;
-                else if (sender == b4) n = 4;
-                else if (sender == b5) n = 5;
-                else if (sender == b6) n = 6;
-                else if (sender == b7) n = 7;
-                else if (sender == b8) n = 8;
-                else if (sender == b9) n = 9;
+                if (sender == b0) NumDisp.Text += "0";
+                else if (sender == b1) NumDisp.Text += "1";
+                else if (sender == b2) NumDisp.Text += "2";
+                else if (sender == b3) NumDisp.Text += "3";
+                else if (sender == b4) NumDisp.Text += "4";
+                else if (sender == b5) NumDisp.Text += "5";
+                else if (sender == b6) NumDisp.Text += "6";
+                else if (sender == b7) NumDisp.Text += "7";
+                else if (sender == b8) NumDisp.Text += "8";
+                else if (sender == b9) NumDisp.Text += "9";
 
-                var num = int.Parse(NumDisp.Text);
-
-                num = num * 10 + n;
-
-                NumDisp.Text = num.ToString();
+                if (NumDisp.Text[0] == '0')
+                    NumDisp.Text = NumDisp.Text.Substring(1);//solves leading zeros
             }
         }
 
