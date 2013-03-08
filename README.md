@@ -1,4 +1,4 @@
 wrc
 ===
 
-Calculatorer
+Calculator
