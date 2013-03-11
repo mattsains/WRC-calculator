@@ -12,13 +12,11 @@ namespace WindowsFormsApplication1
 
         public static bool[] binaryAdd(string number1, string number2)
         {
-            bool[] num1 = new bool[32];
-            bool[] num2 = new bool[32];
             bool[] added = new bool[32];
 
             //load em into arrays
-            num1 = Converter.ToBinary(number1);
-            num2 = Converter.ToBinary(number2);
+            bool[] num1 = Converter.ToBinary(number1);
+            bool[] num2 = Converter.ToBinary(number2);
 
             bool carry = false;
             bool oldcarry = false;
@@ -42,7 +40,7 @@ namespace WindowsFormsApplication1
 
                 controls[controls.Count - 1].Height = 20;
                 controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width - 10;
-                controls[controls.Count - 1].Text = string.Format("2^{0}\t |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0);
+                controls[controls.Count - 1].Text = string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0);
                 TopControl += 20;
             }
 
