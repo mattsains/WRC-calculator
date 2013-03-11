@@ -30,15 +30,29 @@ namespace WindowsFormsApplication1
                 operation = 1;
                 NumDisp.Text = "0";
             }
+            else if (sender == bm)
+            {
+                //minus
+            }
+            else if (sender == bt)
+            {
+                //multiply
+            }
+            else if (sender == bd)
+            {
+                //divide
+            }
             else if (sender == be)
             {
                 switch (operation)
                 {
                     case 1:
                         if (cmbBase.SelectedIndex == 0)
+                            // this is base two addition
                             NumDisp.Text = Converter.ToString(MathsDo.binaryAdd(NumDisp.Text, calculatorMemory));
                         else
-                        {                           
+                        {
+                            // This is base ten addition
                             Control.ControlCollection controls = pnlConvert.Controls;
 
                             controls.Clear();
@@ -54,7 +68,7 @@ namespace WindowsFormsApplication1
 
                             //this must be last or .Text will be changed
                             NumDisp.Text = (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();
-                        }                             
+                        }
 
                         break;
                     default:
@@ -76,6 +90,7 @@ namespace WindowsFormsApplication1
 
                 if (NumDisp.Text[0] == '0')
                     NumDisp.Text = NumDisp.Text.Substring(1);//solves leading zeros
+
             }
   
         }
