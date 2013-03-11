@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1
                 controls[controls.Count - 1].Left = 10;
 
                 controls[controls.Count - 1].Height = 20;
-                controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width;
+                controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width; //why these go over the panel end?
 
                 controls[controls.Count - 1].Text = string.Format("{0," + numDig + "}÷2={1," + numDig + "}  rem {2}", num, num >> 1, num & 1);
                 controlTop += 20;

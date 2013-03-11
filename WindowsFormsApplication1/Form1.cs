@@ -11,6 +11,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        string calculatorMemory = "0";
+        int operation = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -20,6 +23,43 @@ namespace WindowsFormsApplication1
             if (sender == bc)
             {
                 NumDisp.Text = "0";
+            }
+            else if (sender == bp)
+            {
+                calculatorMemory = NumDisp.Text;
+                operation = 1;
+                NumDisp.Text = "0";
+            }
+            else if (sender == be)
+            {
+                switch (operation)
+                {
+                    case 1:
+                        if (cmbBase.SelectedIndex == 0)
+                            NumDisp.Text = Converter.ToString(MathsDo.binaryAdd(NumDisp.Text, calculatorMemory));
+                        else
+                        {                           
+                            Control.ControlCollection controls = pnlConvert.Controls;
+
+                            controls.Clear();
+                            controls.Add(new Label());
+
+                            controls[0].Top = 20;
+                            controls[0].Left = 10;
+
+                            controls[0].Height = 20;
+                            controls[0].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width - 10;
+
+                            controls[0].Text = calculatorMemory + " + " + NumDisp.Text + " = " + (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();
+
+                            //this must be last or .Text will be changed
+                            NumDisp.Text = (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();
+                        }                             
+
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
@@ -37,6 +77,7 @@ namespace WindowsFormsApplication1
                 if (NumDisp.Text[0] == '0')
                     NumDisp.Text = NumDisp.Text.Substring(1);//solves leading zeros
             }
+  
         }
 
         private void cmbBase_SelectedIndexChanged(object sender, EventArgs e)
