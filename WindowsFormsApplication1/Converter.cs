@@ -12,27 +12,18 @@ namespace WindowsFormsApplication1
         public static bool[] Bits(int num)
         {
             //remove all stuff from the Convert panel
-            Program.form1.Controls["pnlConvert"].Controls.Clear();
+            Program.form1.ClearLines();
             //start drawing labels here
-            int controlTop = 20;
 
             bool[] output=new bool[32];
             int numDig = num.ToString().Length;
             for (int i = 0; num > 0 && i < 32; i++)
             {
                 //display
-                controls.Add(new Label());
+                Program.form1.AddLine(string.Format("{0," + numDig + "}÷2={1," + numDig + "}  rem {2}", num, num >> 1, num & 1));
 
-                controls[controls.Count - 1].Top = controlTop;
-                controls[controls.Count - 1].Left = 10;
-
-                controls[controls.Count - 1].Height = 20;
-                controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width; //why these go over the panel end?
-
-                controls[controls.Count - 1].Text = string.Format("{0," + numDig + "}÷2={1," + numDig + "}  rem {2}", num, num >> 1, num & 1);
-                controlTop += 20;
                 //do binaries
-                output[31 - i] = (num & 1) == 1;
+                output[31 - i] = (num & 1) == 1; // mod 2
                 num = num >> 1;
             }
             return output;
@@ -41,8 +32,7 @@ namespace WindowsFormsApplication1
         {
             int output=0;
             //remove all stuff from the Convert panel
-            Program.form1.Controls["pnlConvert"].Controls.Clear();
-            int controlTop = 20;
+            Program.form1.ClearLines();
 
             for (int i = 0; i < 32; i++)
                 if (binary[i])
@@ -53,27 +43,10 @@ namespace WindowsFormsApplication1
                 if ((output & (1 << (31 - i))) !=0)
                 {
                     //display
-                    controls.Add(new Label());
-
-                    controls[controls.Count - 1].Top = controlTop;
-                    controls[controls.Count - 1].Left = 10;
-
-                    controls[controls.Count - 1].Height = 20;
-                    controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width;
-
-                    controls[controls.Count - 1].Text = string.Format((output%(1 << (31 - i)) == 0) ? "1x{0}" : "1×{0}+", 1 << (31 - i));
-                    controlTop += 20;
+                    Program.form1.AddLine(string.Format((output%(1 << (31 - i)) == 0) ? "1x{0}" : "1×{0}+", 1 << (31 - i)));
                 }
             }
-            controls.Add(new Label());
-
-            controls[controls.Count - 1].Top = controlTop;
-            controls[controls.Count - 1].Left = 10;
-
-            controls[controls.Count - 1].Height = 20;
-            controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width;
-
-            controls[controls.Count - 1].Text = string.Format("={0}",output);
+            Program.form1.AddLine(string.Format("={0}",output));
             return output;
         }
         public static string ToString(bool[] binary)

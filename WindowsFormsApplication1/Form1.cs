@@ -14,9 +14,29 @@ namespace WindowsFormsApplication1
         string calculatorMemory = "0";
         int operation = 0;
 
+        int panelTopElement = 20;//this stores where to put the next line in the conversion display
+
         public Form1()
         {
             InitializeComponent();
+        }
+        public void ClearLines()
+        {
+            panelTopElement = 20;
+            pnlConvert.Controls.Clear();
+        }
+        public void AddLine(string text)
+        {
+            pnlConvert.Controls.Add(new Label());
+
+            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Top = panelTopElement;
+            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Left = 10;
+
+            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Height = 20;
+            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Width = pnlConvert.ClientRectangle.Width - 10; //why these go over the panel end?
+
+            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Text = text;
+            panelTopElement += 20;
         }
         private void Button_Click (object sender, EventArgs e)
         {
@@ -53,18 +73,7 @@ namespace WindowsFormsApplication1
                         else
                         {
                             // This is base ten addition
-                            Control.ControlCollection controls = pnlConvert.Controls;
-
-                            controls.Clear();
-                            controls.Add(new Label());
-
-                            controls[0].Top = 20;
-                            controls[0].Left = 10;
-
-                            controls[0].Height = 20;
-                            controls[0].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width - 10;
-
-                            controls[0].Text = calculatorMemory + " + " + NumDisp.Text + " = " + (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();
+                            AddLine(calculatorMemory + " + " + NumDisp.Text + " = " + (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString());
 
                             //this must be last or .Text will be changed
                             NumDisp.Text = (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();

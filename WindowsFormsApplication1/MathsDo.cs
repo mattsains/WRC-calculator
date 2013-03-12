@@ -20,9 +20,8 @@ namespace WindowsFormsApplication1
 
             bool carry = false;
             bool oldcarry = false;
-            
-            controls.Clear();
-            int TopControl = 20;
+
+            Program.form1.ClearLines();
 
             //add em up
             for (int i = 31; i >= 0; i--)
@@ -33,15 +32,7 @@ namespace WindowsFormsApplication1
                 added[i] = addBits(num1[i], num2[i],ref carry);
                  
                 //displaying
-                controls.Add(new Label());
-
-                controls[controls.Count - 1].Top = TopControl;
-                controls[controls.Count - 1].Left = 10;
-
-                controls[controls.Count - 1].Height = 20;
-                controls[controls.Count - 1].Width = Program.form1.Controls["pnlConvert"].ClientRectangle.Width - 10;
-                controls[controls.Count - 1].Text = string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0);
-                TopControl += 20;
+                Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
             }
 
             //removing unnecessary labels
