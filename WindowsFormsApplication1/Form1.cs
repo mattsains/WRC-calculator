@@ -9,10 +9,13 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
+    enum Operation { None=0, Addition, Subtraction, Multiplication, Division }
     public partial class Form1 : Form
     {
-        string calculatorMemory = "0";
-        int operation = 0;
+        bool[] display = new bool[32]; //stores the binary equivalent of the display at <del>all</div>most times
+        bool[] memory = new bool[32]; //stores the last display before pressing an operator
+        Operation operation = Operation.None; //for persistance
+
 
         int panelTopElement = 20;//this stores where to put the next line in the conversion display
 
@@ -38,47 +41,76 @@ namespace WindowsFormsApplication1
             pnlConvert.Controls[pnlConvert.Controls.Count - 1].Text = text;
             panelTopElement += 20;
         }
+        /// <summary>
+        /// Sets the display taking representation into account
+        /// </summary>
+        /// <param name="num">binary or int, anything!</param>
+        public void SetDisplay(string num)
+        {
+            if (cmbBase.Text == "base 2")
+                SetDisplay(Converter.ToBinary(num));
+            else SetDisplay(Converter.Bits(int.Parse(num)));
+        }
+        public void SetDisplay(int num)
+        {
+            SetDisplay(Converter.Bits(num));
+        }
+        public void SetDisplay(bool[] num)
+        {
+            if (cmbBase.Text == "base 2")
+                NumDisp.Text = Converter.ToString(num);
+            else NumDisp.Text = Converter.Int(num).ToString();
+            display = num; //if we don't have pointer issues here, I will buy you an alcohol beverage of your choice
+        }
+
         private void Button_Click (object sender, EventArgs e)
         {
             if (sender == bc)
             {
-                NumDisp.Text = "0";
+                SetDisplay(0);
             }
             else if (sender == bp)
             {
-                calculatorMemory = NumDisp.Text;
-                operation = 1;
-                NumDisp.Text = "0";
+                //ADDITION
+                memory = display; //keep this number before clearing it in preparation for the next number
+
+                operation = Operation.Addition;
+
+                SetDisplay(0);
             }
             else if (sender == bm)
             {
                 //minus
+                memory = display; //keep this number before clearing it in preparation for the next number
+
+                operation = Operation.Subtraction;
+
+                SetDisplay(0);
             }
             else if (sender == bt)
             {
                 //multiply
+                memory = display; //keep this number before clearing it in preparation for the next number
+
+                operation = Operation.Multiplication;
+
+                SetDisplay(0);
             }
             else if (sender == bd)
             {
                 //divide
+                memory = display; //keep this number before clearing it in preparation for the next number
+
+                operation = Operation.Division;
+
+                SetDisplay(0);
             }
             else if (sender == be)
             {
                 switch (operation)
                 {
-                    case 1:
-                        if (cmbBase.SelectedIndex == 0)
-                            // this is base two addition
-                            NumDisp.Text = Converter.ToString(MathsDo.binaryAdd(NumDisp.Text, calculatorMemory));
-                        else
-                        {
-                            // This is base ten addition
-                            AddLine(calculatorMemory + " + " + NumDisp.Text + " = " + (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString());
-
-                            //this must be last or .Text will be changed
-                            NumDisp.Text = (int.Parse(NumDisp.Text) + int.Parse(calculatorMemory)).ToString();
-                        }
-
+                    case Operation.Addition:
+                        SetDisplay(MathsDo.binaryAdd(display, memory));
                         break;
                     default:
                         break;
@@ -86,20 +118,17 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                if (sender == b0) NumDisp.Text += "0";
-                else if (sender == b1) NumDisp.Text += "1";
-                else if (sender == b2) NumDisp.Text += "2";
-                else if (sender == b3) NumDisp.Text += "3";
-                else if (sender == b4) NumDisp.Text += "4";
-                else if (sender == b5) NumDisp.Text += "5";
-                else if (sender == b6) NumDisp.Text += "6";
-                else if (sender == b7) NumDisp.Text += "7";
-                else if (sender == b8) NumDisp.Text += "8";
-                else if (sender == b9) NumDisp.Text += "9";
-
-                if (NumDisp.Text[0] == '0')
-                    NumDisp.Text = NumDisp.Text.Substring(1);//solves leading zeros
-
+                // A number button was pressed
+                if (sender == b0) SetDisplay(NumDisp.Text + "0");
+                else if (sender == b1) SetDisplay(NumDisp.Text + "1");
+                else if (sender == b2) SetDisplay(NumDisp.Text + "2");
+                else if (sender == b3) SetDisplay(NumDisp.Text + "3");
+                else if (sender == b4) SetDisplay(NumDisp.Text + "4");
+                else if (sender == b5) SetDisplay(NumDisp.Text + "5");
+                else if (sender == b6) SetDisplay(NumDisp.Text + "6");
+                else if (sender == b7) SetDisplay(NumDisp.Text + "7");
+                else if (sender == b8) SetDisplay(NumDisp.Text + "8");
+                else if (sender == b9) SetDisplay(NumDisp.Text + "9");
             }
   
         }
@@ -118,8 +147,7 @@ namespace WindowsFormsApplication1
                 b7.Enabled=false;
                 b8.Enabled=false;
                 b9.Enabled = false;
-                //convert to binary
-                NumDisp.Text = Converter.ToString(Converter.Bits(int.Parse(NumDisp.Text)));
+                pnlConvert.Controls.Clear();
             }
             else if (cmbBase.Text == "base 10")
             {
@@ -133,9 +161,8 @@ namespace WindowsFormsApplication1
                 b7.Enabled = true;
                 b8.Enabled = true;
                 b9.Enabled = true;
-                //convert to base tens
-                NumDisp.Text = Converter.Int(Converter.ToBinary(NumDisp.Text)).ToString();
             }
+            SetDisplay(display);
         }
 
     }

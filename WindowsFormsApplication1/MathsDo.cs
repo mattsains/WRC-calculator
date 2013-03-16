@@ -10,13 +10,9 @@ namespace WindowsFormsApplication1
     {
         static Control.ControlCollection controls = Program.form1.Controls["pnlConvert"].Controls;
 
-        public static bool[] binaryAdd(string number1, string number2)
+        public static bool[] binaryAdd(bool[] num1, bool[] num2)
         {
             bool[] added = new bool[32];
-
-            //load em into arrays
-            bool[] num1 = Converter.ToBinary(number1);
-            bool[] num2 = Converter.ToBinary(number2);
 
             bool carry = false;
             bool oldcarry = false;
@@ -32,7 +28,11 @@ namespace WindowsFormsApplication1
                 added[i] = addBits(num1[i], num2[i],ref carry);
                  
                 //displaying
-                Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
+                if (i==31)//no carry on first go
+                    Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2}      = c{3} + {4}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
+                else
+                    Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
+
             }
 
             //removing unnecessary labels
