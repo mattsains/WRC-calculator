@@ -9,10 +9,11 @@ namespace WindowsFormsApplication1
     static class Converter
     {
         static Control.ControlCollection controls = Program.form1.Controls["pnlConvert"].Controls;
-        public static bool[] Bits(int num)
+        public static bool[] Bits(int num, bool display=false)
         {
             //remove all stuff from the Convert panel
-            Program.form1.ClearLines();
+            if (display)
+                Program.form1.ClearLines();
             //start drawing labels here
 
             bool[] output=new bool[32];
@@ -20,7 +21,8 @@ namespace WindowsFormsApplication1
             for (int i = 0; num > 0 && i < 32; i++)
             {
                 //display
-                Program.form1.AddLine(string.Format("{0," + numDig + "}÷2={1," + numDig + "}  rem {2}", num, num >> 1, num & 1));
+                if (display)
+                    Program.form1.AddLine(string.Format("{0," + numDig + "}÷2={1," + numDig + "}  rem {2}", num, num >> 1, num & 1));
 
                 //do binaries
                 output[31 - i] = (num & 1) == 1; // mod 2
@@ -28,25 +30,28 @@ namespace WindowsFormsApplication1
             }
             return output;
         }
-        public static int Int(bool[] binary)
+        public static int Int(bool[] binary,bool display=false)
         {
             int output=0;
             //remove all stuff from the Convert panel
-            Program.form1.ClearLines();
+            if (display)
+                Program.form1.ClearLines();
 
             for (int i = 0; i < 32; i++)
                 if (binary[i])
                     output += (1 << (31 - i));
-
-            for (int i = 0; i < 32; i++)
+            if (display)
             {
-                if ((output & (1 << (31 - i))) !=0)
+                for (int i = 0; i < 32; i++)
                 {
-                    //display
-                    Program.form1.AddLine(string.Format((output%(1 << (31 - i)) == 0) ? "1x{0}" : "1×{0}+", 1 << (31 - i)));
+                    if ((output & (1 << (31 - i))) != 0)
+                    {
+                        //display
+                        Program.form1.AddLine(string.Format((output % (1 << (31 - i)) == 0) ? "1x{0}" : "1×{0}+", 1 << (31 - i)));
+                    }
                 }
+                Program.form1.AddLine(string.Format("={0}", output));
             }
-            Program.form1.AddLine(string.Format("={0}",output));
             return output;
         }
         public static string ToString(bool[] binary)
@@ -70,6 +75,10 @@ namespace WindowsFormsApplication1
                 output[31 - i] = s[s.Length - i - 1] == '1';
             }
             return output;
+        }
+        public static bool[] SHL(bool[] num, int n)
+        {
+            return Converter.Bits(Converter.Int(num) << n);
         }
     }
 }

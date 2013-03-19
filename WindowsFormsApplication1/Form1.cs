@@ -36,7 +36,8 @@ namespace WindowsFormsApplication1
             pnlConvert.Controls[pnlConvert.Controls.Count - 1].Left = 10;
 
             pnlConvert.Controls[pnlConvert.Controls.Count - 1].Height = 20;
-            pnlConvert.Controls[pnlConvert.Controls.Count - 1].Width = pnlConvert.ClientRectangle.Width - 10; //why these go over the panel end?
+
+            ((Label)pnlConvert.Controls[pnlConvert.Controls.Count - 1]).AutoSize = true;
 
             pnlConvert.Controls[pnlConvert.Controls.Count - 1].Text = text;
             panelTopElement += 20;
@@ -45,22 +46,26 @@ namespace WindowsFormsApplication1
         /// Sets the display taking representation into account
         /// </summary>
         /// <param name="num">binary or int, anything!</param>
-        public void SetDisplay(string num)
+        public void SetDisplay(string num, bool display=false)
         {
             if (cmbBase.Text == "base 2")
-                SetDisplay(Converter.ToBinary(num));
-            else SetDisplay(Converter.Bits(int.Parse(num)));
+                SetDisplay(Converter.ToBinary(num), display);
+            else SetDisplay(Converter.Bits(int.Parse(num)),display);
         }
-        public void SetDisplay(int num)
+        public void SetDisplay(int num, bool display=false)
         {
-            SetDisplay(Converter.Bits(num));
+            SetDisplay(Converter.Bits(num,display),display);
         }
-        public void SetDisplay(bool[] num)
+        public void SetDisplay(bool[] num, bool display=false)
         {
             if (cmbBase.Text == "base 2")
+            {
                 NumDisp.Text = Converter.ToString(num);
-            else NumDisp.Text = Converter.Int(num).ToString();
-            display = num; //if we don't have pointer issues here, I will buy you an alcohol beverage of your choice
+                //do a dummy conversion from the int, just for show
+                Converter.Bits(Converter.Int(num), true);
+            }
+            else NumDisp.Text = Converter.Int(num, display).ToString();
+            this.display = num; //if we don't have pointer issues here, I will buy you an alcohol beverage of your choice
         }
 
         private void Button_Click (object sender, EventArgs e)
@@ -112,6 +117,9 @@ namespace WindowsFormsApplication1
                     case Operation.Addition:
                         SetDisplay(MathsDo.binaryAdd(display, memory));
                         break;
+                    case Operation.Multiplication:
+                        SetDisplay(MathsDo.multiply(display, memory));
+                        break;
                     default:
                         break;
                 }
@@ -162,7 +170,7 @@ namespace WindowsFormsApplication1
                 b8.Enabled = true;
                 b9.Enabled = true;
             }
-            SetDisplay(display);
+            SetDisplay(display, true);
         }
 
     }
