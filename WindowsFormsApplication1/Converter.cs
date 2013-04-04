@@ -9,14 +9,14 @@ namespace WindowsFormsApplication1
     static class Converter
     {
         static Control.ControlCollection controls = Program.form1.Controls["pnlConvert"].Controls;
-        public static bool[] Bits(int num, bool display=false)
+        public static bool[] Bits(int num, bool display = false)
         {
             //remove all stuff from the Convert panel
             if (display)
                 Program.form1.ClearLines();
             //start drawing labels here
 
-            bool[] output=new bool[32];
+            bool[] output = new bool[32];
             int numDig = num.ToString().Length;
             for (int i = 0; num > 0 && i < 32; i++)
             {
@@ -30,9 +30,9 @@ namespace WindowsFormsApplication1
             }
             return output;
         }
-        public static int Int(bool[] binary,bool display=false)
+        public static int Int(bool[] binary, bool display = false)
         {
-            int output=0;
+            int output = 0;
             //remove all stuff from the Convert panel
             if (display)
                 Program.form1.ClearLines();

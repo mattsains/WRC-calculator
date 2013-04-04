@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    enum Operation { None=0, Addition, Subtraction, Multiplication, Division }
+    enum Operation { None = 0, Addition, Subtraction, Multiplication, Division }
     public partial class Form1 : Form
     {
         bool[] display = new bool[32]; //stores the binary equivalent of the display at <del>all</div>most times
@@ -46,17 +46,17 @@ namespace WindowsFormsApplication1
         /// Sets the display taking representation into account
         /// </summary>
         /// <param name="num">binary or int, anything!</param>
-        public void SetDisplay(string num, bool display=false)
+        public void SetDisplay(string num, bool display = false)
         {
             if (cmbBase.Text == "base 2")
                 SetDisplay(Converter.ToBinary(num), display);
-            else SetDisplay(Converter.Bits(int.Parse(num)),display);
+            else SetDisplay(Converter.Bits(int.Parse(num)), display);
         }
-        public void SetDisplay(int num, bool display=false)
+        public void SetDisplay(int num, bool display = false)
         {
-            SetDisplay(Converter.Bits(num,display),display);
+            SetDisplay(Converter.Bits(num, display), display);
         }
-        public void SetDisplay(bool[] num, bool display=false)
+        public void SetDisplay(bool[] num, bool display = false)
         {
             if (cmbBase.Text == "base 2")
             {
@@ -68,7 +68,7 @@ namespace WindowsFormsApplication1
             this.display = num; //if we don't have pointer issues here, I will buy you an alcohol beverage of your choice
         }
 
-        private void Button_Click (object sender, EventArgs e)
+        private void Button_Click(object sender, EventArgs e)
         {
             if (sender == bc)
             {
@@ -138,7 +138,7 @@ namespace WindowsFormsApplication1
                 else if (sender == b8) SetDisplay(NumDisp.Text + "8");
                 else if (sender == b9) SetDisplay(NumDisp.Text + "9");
             }
-  
+
         }
 
         private void cmbBase_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,13 +147,13 @@ namespace WindowsFormsApplication1
             {
                 b0.Enabled = true;
                 b1.Enabled = true;
-                b2.Enabled=false;
-                b3.Enabled=false;
-                b4.Enabled=false;
-                b5.Enabled=false;
-                b6.Enabled=false;
-                b7.Enabled=false;
-                b8.Enabled=false;
+                b2.Enabled = false;
+                b3.Enabled = false;
+                b4.Enabled = false;
+                b5.Enabled = false;
+                b6.Enabled = false;
+                b7.Enabled = false;
+                b8.Enabled = false;
                 b9.Enabled = false;
                 pnlConvert.Controls.Clear();
             }
