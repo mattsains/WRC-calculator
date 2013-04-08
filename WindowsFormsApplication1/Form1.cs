@@ -130,6 +130,9 @@ namespace WindowsFormsApplication1
                     case Operation.Subtraction:
                         SetDisplay(MathsDo.subtract(display, memory));
                         break;
+                    case Operation.Division:
+                        SetDisplay(MathsDo.divide(memory, display));
+                        break;
                     default:
                         break;
                 }
