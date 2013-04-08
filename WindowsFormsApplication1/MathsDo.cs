@@ -84,24 +84,47 @@ namespace WindowsFormsApplication1
             return binaryAdd(num1, num2, display); //lol
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="num1">dividend</param>
-        /// <param name="num2">divisor</param>
-        /// <returns>quotient</returns>
-        public static bool[] divide(bool[] num1, bool[] num2) //assuming positive numbers
+        public static bool[] divide(bool[] dividend, bool[] divisor) //assuming positive numbers
         {
-            return new bool[32];
+            Program.form1.ClearLines();
+            bool startdisplay = false;
+            bool[] result = new bool[32];
+            for (int i = 0; i < 32; i++)
+            {
+                bool[] check = new bool[32];
+                Array.ConstrainedCopy(dividend, 0, check, 31 - i, i + 1);
+                bool[] minus = MathsDo.binaryAdd(check, changeSign(divisor), false); //see if it goes in by subtracting
+                bool goesIn = !minus[0];
+
+                if (goesIn)
+                    startdisplay = true; //first postivie gives us a starting point for displaying
+
+                if (startdisplay)
+                {
+                    result[i] = goesIn;
+                    Program.form1.AddLine("Divisor = " + Converter.ToString(dividend));
+                    Program.form1.AddLine(string.Format("{0} ÷ {1} = rem {2} + {3}", Converter.ToString(check), Converter.ToString(divisor),
+                        minus[0] ? Converter.ToString(divisor) : Converter.ToString(minus), goesIn ? "1" : "0")); //avoid negative remainders
+                }
+
+                if (goesIn)
+                    for (int j = i; j >= 0; j--)
+                    {
+                        dividend[j] = minus[j + 31 - i];
+                    }
+            }
+
+            return result;
         }
 
         private static bool[] changeSign(bool[] a)
         {
+            bool[] b = new bool[32];
             for (int i = 0 ; i < 32 ; i++)
             {
-                a[i] = !a[i];
+                b[i] = !a[i];
             }
-            return Converter.plusOne(a);
+            return Converter.plusOne(b);
         }
     }
 }
