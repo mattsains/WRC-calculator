@@ -38,9 +38,9 @@ namespace WindowsFormsApplication1
                 //displaying
                 if (display)
                     if (i == 31)//no carry on first go
-                        Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2}      = c{3} + {4}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
+                        Program.form1.AddLine(string.Format("2^{0,-2} |{2} + {1}      = c{3} + {4}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
                     else
-                        Program.form1.AddLine(string.Format("2^{0,-2} |{1} + {2} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
+                        Program.form1.AddLine(string.Format("2^{0,-2} |{2} + {1} + c{3} = c{4} + {5}", 31 - i, num1[i] ? 1 : 0, num2[i] ? 1 : 0, oldcarry ? 1 : 0, carry ? 1 : 0, added[i] ? 1 : 0));
 
             }
 
@@ -56,7 +56,7 @@ namespace WindowsFormsApplication1
             return added;
         }
 
-        public static bool[] multiply(bool[] a, bool[] b)
+        public static bool[] multiply(bool[] a, bool[] b) //assuming positive numbers
         {
             bool[] temp = new bool[32];
             int digs = Converter.ToString(a).Length + Converter.ToString(b).Length;
@@ -79,6 +79,29 @@ namespace WindowsFormsApplication1
             return temp;
         }
 
+        public static bool[] subtract(bool[] num1, bool[] num2, bool display = true)
+        {
+            return binaryAdd(num1, num2, display); //lol
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="num1">dividend</param>
+        /// <param name="num2">divisor</param>
+        /// <returns>quotient</returns>
+        public static bool[] divide(bool[] num1, bool[] num2) //assuming positive numbers
+        {
+            return new bool[32];
+        }
+
+        private static bool[] changeSign(bool[] a)
+        {
+            for (int i = 0 ; i < 32 ; i++)
+            {
+                a[i] = !a[i];
+            }
+            return Converter.plusOne(a);
+        }
     }
 }

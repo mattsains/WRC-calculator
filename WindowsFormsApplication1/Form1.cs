@@ -48,9 +48,16 @@ namespace WindowsFormsApplication1
         /// <param name="num">binary or int, anything!</param>
         public void SetDisplay(string num, bool display = false)
         {
-            if (cmbBase.Text == "base 2")
-                SetDisplay(Converter.ToBinary(num), display);
-            else SetDisplay(Converter.Bits(int.Parse(num)), display);
+            if (num.Equals("-")) //I assume this is the only other case that can happen
+            {
+                NumDisp.Text = "-";
+            }
+            else
+            {
+                if (cmbBase.Text == "base 2")
+                    SetDisplay(Converter.ToBinary(num), display);
+                else SetDisplay(Converter.Bits(int.Parse(num)), display);
+            }
         }
         public void SetDisplay(int num, bool display = false)
         {
@@ -90,7 +97,7 @@ namespace WindowsFormsApplication1
 
                 operation = Operation.Subtraction;
 
-                SetDisplay(0);
+                SetDisplay("-");
             }
             else if (sender == bt)
             {
@@ -119,6 +126,9 @@ namespace WindowsFormsApplication1
                         break;
                     case Operation.Multiplication:
                         SetDisplay(MathsDo.multiply(display, memory));
+                        break;
+                    case Operation.Subtraction:
+                        SetDisplay(MathsDo.subtract(display, memory));
                         break;
                     default:
                         break;

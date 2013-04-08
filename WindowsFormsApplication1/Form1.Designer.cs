@@ -255,19 +255,22 @@
             this.pnlConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlConvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlConvert.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlConvert.Location = new System.Drawing.Point(415, 9);
+            this.pnlConvert.Location = new System.Drawing.Point(311, 9);
+            this.pnlConvert.MinimumSize = new System.Drawing.Size(327, 275);
             this.pnlConvert.Name = "pnlConvert";
-            this.pnlConvert.Size = new System.Drawing.Size(268, 409);
+            this.pnlConvert.Size = new System.Drawing.Size(327, 275);
             this.pnlConvert.TabIndex = 18;
             this.pnlConvert.TabStop = false;
             this.pnlConvert.Text = "Decimal-Binary Conversion";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 430);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScroll = true;
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(658, 311);
             this.Controls.Add(this.pnlConvert);
             this.Controls.Add(this.bc);
             this.Controls.Add(this.cmbBase);
@@ -287,6 +290,10 @@
             this.Controls.Add(this.b8);
             this.Controls.Add(this.b7);
             this.Controls.Add(this.NumDisp);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(664, 339);
+            this.MinimumSize = new System.Drawing.Size(664, 339);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
