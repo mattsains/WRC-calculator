@@ -20,6 +20,7 @@ namespace WindowsFormsApplication1
         public static bool[] binaryAdd(bool[] num1, bool[] num2, bool display = true)
         {
             bool[] added = new bool[32];
+            bool[] fix = new bool[32];
 
             bool carry = false;
             bool oldcarry = false;
@@ -35,6 +36,10 @@ namespace WindowsFormsApplication1
                 //adding
                 added[i] = addBits(num1[i], num2[i], ref carry);
 
+                fix[i] = (num1[i] || num2[i]);
+
+
+
                 //displaying
                 if (display)
                     if (i == 31)//no carry on first go
@@ -48,7 +53,7 @@ namespace WindowsFormsApplication1
             //TODO: see if we can remove this
             if (display)
                 for (int i = 0; i < 32; i++)
-                    if (!added[i])
+                    if (!fix[i])
                         controls[31 - i].Dispose();
                     else
                         break; //break as soon as a 1 is found
